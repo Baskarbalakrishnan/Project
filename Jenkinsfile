@@ -36,7 +36,7 @@ pipeline {
           withCredentials([string(credentialsId: 'aws-access-key-id', variable: 'AWS_ACCESS_KEY_ID'),
                            string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
             sh 'terraform init'
-            sh 'terraform apply -auto-approve -var="aws_region=$AWS_REGION" -var="docker_image=$IMAGE_NAME" -var="key_name=$KEY_NAME"'
+            sh 'terraform apply -auto-approve -var="docker_image=$IMAGE_NAME" -var="key_name=$KEY_NAME"'
           }
         }
       }
