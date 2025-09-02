@@ -1,0 +1,6 @@
+# infra/terraform.tfvars.example
+aws_region   = "ap-south-1"
+instance_type = "t3.micro"
+key_name     = "Server Key Pair BN"
+allowed_cidr = ["0.0.0.0/0"]
+docker_image = "baskarb/myapp:latest"
