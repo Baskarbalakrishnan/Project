@@ -1,0 +1,6 @@
+# infra/terraform.tfvars.example
+aws_region   = "ap-south-1"
+instance_type = "t3.micro"
+key_name     = "REPLACE_WITH_YOUR_KEYPAIR_NAME"
+allowed_cidr = ["0.0.0.0/0"]
+docker_image = "REPLACE_WITH_DOCKERHUB_USER/myapp:latest"
