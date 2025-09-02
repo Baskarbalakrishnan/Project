@@ -22,6 +22,6 @@ variable "allowed_cidr" {
 }
 
 variable "docker_image" {
-  description = "baskarb/myapp:latest)"
+  description = "baskarb/project:latest"
   type        = string
 }
