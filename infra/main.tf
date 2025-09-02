@@ -43,7 +43,7 @@ resource "aws_instance" "app_server" {
   ami                    = data.aws_ami.al2.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.app_sg.id]
-  key_name               = var.key_name
+  key_name               = Server Key Pair BN
 
   user_data = <<-EOF
     #!/bin/bash
