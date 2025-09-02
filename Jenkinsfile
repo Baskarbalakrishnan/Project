@@ -3,8 +3,9 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "baskarb"
-    AWS_REGION = "ap-south-1"
+    DOCKERHUB_USER = "baskarb"
+    IMAGE_NAME = "baskarb/project"
+    IMAGE_TAG = "latest"
   }
 
   stages {
