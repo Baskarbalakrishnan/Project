@@ -3,7 +3,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "latest"
+    IMAGE_NAME = "baskarb"
     AWS_REGION = "ap-south-1"
   }
 
