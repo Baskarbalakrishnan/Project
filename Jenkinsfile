@@ -3,7 +3,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "baskarb"
+    IMAGE_NAME = "latest"
     AWS_REGION = "ap-south-1"
   }
 
@@ -41,12 +41,12 @@ pipeline {
       }
       environment {
         // Populate KEY_NAME via Jenkins parameter or environment variable
-        KEY_NAME = "${params.KEY_NAME ?: 'REPLACE_WITH_YOUR_KEYPAIR_NAME'}"
+        KEY_NAME = "${params.KEY_NAME ?: 'Server Key Pair BN'}"
       }
     }
   }
 
   parameters {
-    string(name: 'KEY_NAME', defaultValue: 'REPLACE_WITH_YOUR_KEYPAIR_NAME', description: 'EC2 key pair name')
+    string(name: 'KEY_NAME', defaultValue: 'Server Key Pair BN', description: 'EC2 key pair name')
   }
 }
