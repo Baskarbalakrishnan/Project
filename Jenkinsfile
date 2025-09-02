@@ -42,12 +42,12 @@ pipeline {
       }
       environment {
         // Populate KEY_NAME via Jenkins parameter or environment variable
-        KEY_NAME = "${params.KEY_NAME ?: 'Server Key Pair BN'}"
+        KEY_NAME = "${params.KEY_NAME ?: 'Severs Key Pair BN'}"
       }
     }
   }
 
   parameters {
-    string(name: 'KEY_NAME', defaultValue: 'Server Key Pair BN', description: 'EC2 key pair name')
+    string(name: 'KEY_NAME', defaultValue: 'Severs Key Pair BN', description: 'EC2 key pair name')
   }
 }
