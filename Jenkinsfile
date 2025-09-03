@@ -9,21 +9,23 @@ pipeline {
 
     parameters {
         string(name: 'KEY_NAME', defaultValue: 'Severs Key Pair BN', description: 'EC2 key pair name')
+        string(name: 'EC2_PUBLIC_IP', defaultValue: '3.110.30.93', description: 'EC2 Public IP')
     }
 
     stages {
         stage('Deploy to EC2') {
-    steps {
-        sshagent(credentials: ['ec2-ssh-key']) {
-            sh """
-            ssh -o StrictHostKeyChecking=no ec2-user@${params.EC2_PUBLIC_IP} '
-                docker rm -f devops-app || true &&
-                docker pull your_dockerhub_user/aws-devops-app:latest &&
-                docker run -d -p 80:3000 --name devops-app your_dockerhub_user/aws-devops-app:latest
-            '
-            """
+            steps {
+                sshagent(credentials: ['ec2-ssh-key']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ec2-user@${params.EC2_PUBLIC_IP} '
+                        docker rm -f devops-app || true &&
+                        docker pull your_dockerhub_user/aws-devops-app:latest &&
+                        docker run -d -p 80:3000 --name devops-app your_dockerhub_user/aws-devops-app:latest
+                    '
+                    """
+                }
+            }
         }
-    }
 
         stage('Build Docker Image') {
             steps {
