@@ -3,7 +3,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "REPLACE_WITH_DOCKERHUB_USER/aws-devops-app:latest"
+    IMAGE_NAME = "baskarb/aws-devops-app:latest"
     AWS_REGION = "ap-south-1"
   }
 
