@@ -55,23 +55,19 @@ resource "aws_instance" "app_server" {
 
   user_data = <<-EOF
     #!/bin/bash
-    set -eux
-    yum update -y
-    amazon-linux-extras install docker -y || yum install -y docker
-    systemctl enable docker
-    systemctl start docker
+sudo yum update -y
+sudo amazon-linux-extras install docker -y
+sudo service docker start
+sudo usermod -aG docker ec2-user
 
-    # Stop & remove old container if exists
-    sudo docker rm -f devops-app || true
+# Always remove old container
+docker rm -f devops-app || true
 
-    # Remove old image if exists
-    sudo docker rmi -f ${var.docker_image} || true
+# Always pull the latest image
+docker pull your_dockerhub_user/aws-devops-app:latest
 
-    # Always pull the latest image
-    sudo docker pull ${var.docker_image}
-
-    # Run fresh container
-    sudo docker run -d --restart unless-stopped -p 80:3000 --name devops-app ${var.docker_image}
+# Run fresh container
+docker run -d -p 80:3000 --name devops-app your_dockerhub_user/aws-devops-app:latest
 EOF
 
   tags = {
