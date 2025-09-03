@@ -1,12 +1,14 @@
-// Jenkinsfile
 pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "baskarb/aws-devops-app"
-        IMAGE_TAG  = "${env.BUILD_NUMBER}"   // unique tag per build
+        IMAGE_NAME = "baskarb/project"
+        IMAGE_TAG  = "${env.BUILD_NUMBER}"
         AWS_REGION = "ap-south-1"
-        KEY_NAME   = "${params.KEY_NAME ?: 'Severs Key Pair BN'}"
+    }
+
+    parameters {
+        string(name: 'KEY_NAME', defaultValue: 'Severs Key Pair BN', description: 'EC2 key pair name')
     }
 
     stages {
@@ -33,16 +35,15 @@ pipeline {
                         string(credentialsId: 'aws-secret-access-key', variable: 'AWS_SECRET_ACCESS_KEY')
                     ]) {
                         sh 'terraform init'
-                        sh 'terraform apply -auto-approve -var="aws_region=$AWS_REGION" -var="docker_image=$IMAGE_NAME:$IMAGE_TAG" -var="key_name=$KEY_NAME"'
+                        sh '''
+                            terraform apply -auto-approve \
+                              -var="aws_region=$AWS_REGION" \
+                              -var="docker_image=$IMAGE_NAME:$IMAGE_TAG" \
+                              -var="key_name=$KEY_NAME"
+                        '''
                     }
                 }
             }
         }
     }
 }
-
-  parameters {
-    string(name: 'KEY_NAME', defaultValue: 'Severs Key Pair BN', description: 'EC2 key pair name')
-  }
-}
-
