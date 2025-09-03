@@ -21,6 +21,13 @@ resource "aws_security_group" "app_sg" {
   vpc_id      = data.aws_vpc.default.id
 
   ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_cidr
+  }
+
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
