@@ -52,9 +52,16 @@ resource "aws_instance" "app_server" {
     amazon-linux-extras install docker -y || yum install -y docker
     systemctl enable docker
     systemctl start docker
+
+    # Stop & remove old container if exists
+    docker rm -f devops-app || true
+
+    # Always pull the latest image
     docker pull ${var.docker_image}
+
+    # Run fresh container
     docker run -d --restart unless-stopped -p 80:3000 --name devops-app ${var.docker_image}
-  EOF
+EOF
 
   tags = {
     Name = "DevOps-App-Server"
