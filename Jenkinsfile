@@ -47,7 +47,7 @@ pipeline {
 
     stage('Deploy to EC2') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'ec2-key', keyFileVariable: 'EC2_KEY')]) {
+        withCredentials([sshUserPrivateKey(credentialsId: 'Severs Key Pair BN', keyFileVariable: 'EC2_KEY')]) {
           sh '''
             EC2_PUBLIC_IP=$(terraform -chdir=infra output -raw public_ip)
             ssh -o StrictHostKeyChecking=no -i $EC2_KEY ec2-user@$EC2_PUBLIC_IP '
