@@ -17,9 +17,10 @@ data "aws_ami" "al2" {
 
 resource "aws_security_group" "app_sg" {
   name        = "devops-app-sg"
-  description = "Allow HTTP to app"
+  description = "Allow HTTP and SSH to app"
   vpc_id      = data.aws_vpc.default.id
 
+  # Allow HTTP
   ingress {
     from_port   = 80
     to_port     = 80
@@ -27,6 +28,17 @@ resource "aws_security_group" "app_sg" {
     cidr_blocks = var.allowed_cidr
   }
 
+  # Allow SSH
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    # For testing, open to all:
+    cidr_blocks = ["0.0.0.0/0"]
+    # Later, restrict this to your Jenkins server IP for better security
+  }
+
+  # Outbound (all traffic allowed)
   egress {
     from_port   = 0
     to_port     = 0
