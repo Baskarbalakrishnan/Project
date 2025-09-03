@@ -17,21 +17,14 @@ data "aws_ami" "al2" {
 
 resource "aws_security_group" "app_sg" {
   name        = "devops-app-sg"
-  description = "Allow HTTP and SSH to app"
+  description = "Allow HTTP to app"
   vpc_id      = data.aws_vpc.default.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.allowed_cidr
   }
 
   egress {
@@ -45,7 +38,6 @@ resource "aws_security_group" "app_sg" {
     Name = "devops-app-sg"
   }
 }
-
 resource "aws_instance" "app_server" {
   ami                    = data.aws_ami.al2.id
   instance_type          = var.instance_type
