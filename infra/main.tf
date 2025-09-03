@@ -62,13 +62,16 @@ resource "aws_instance" "app_server" {
     systemctl start docker
 
     # Stop & remove old container if exists
-    docker rm -f devops-app || true
+    sudo docker rm -f devops-app || true
+
+    # Remove old image if exists
+    sudo docker rmi -f ${var.docker_image} || true
 
     # Always pull the latest image
-    docker pull ${var.docker_image}
+    sudo docker pull ${var.docker_image}
 
     # Run fresh container
-    docker run -d --restart unless-stopped -p 80:3000 --name devops-app ${var.docker_image}
+    sudo docker run -d --restart unless-stopped -p 80:3000 --name devops-app ${var.docker_image}
 EOF
 
   tags = {
