@@ -22,6 +22,6 @@ variable "allowed_cidr" {
 }
 
 variable "docker_image" {
-  description = "Docker image to deploy (e.g., dockerhub_user/myapp:latest)"
+  description = "baskarb/project:latest"
   type        = string
 }
