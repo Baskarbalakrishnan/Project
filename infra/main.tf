@@ -16,13 +16,12 @@ data "aws_ami" "al2" {
 }
 
 resource "aws_security_group" "app_sg" {
-  name        = "devops-app-sg"
+  name_prefix = "devops-app-sg-"
   description = "Allow HTTP and SSH to app"
   vpc_id      = data.aws_vpc.default.id
 
-  lifecycle {
-    create_before_destroy = true
-  }
+  # rules...
+}
 
   ingress {
     from_port   = 22
