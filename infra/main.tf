@@ -15,8 +15,8 @@ data "aws_ami" "al2" {
   }
 }
 
-resource "aws_security_group" "B_sg" {
-  name        = "devops-app-sg"
+resource "aws_security_group" "Bdevops-app-sg" {
+  name        = "Bdevops-app-sg"
   description = "Allow HTTP to app"
   vpc_id      = data.aws_vpc.default.id
 
@@ -42,7 +42,7 @@ resource "aws_security_group" "B_sg" {
   }
 
   tags = {
-    Name = "devops-app-sg"
+    Name = "Bdevops-app-sg"
   }
 }
 resource "aws_instance" "app_server" {
