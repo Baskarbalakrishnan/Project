@@ -48,10 +48,10 @@ resource "aws_security_group" "Bdevops-app-sg" {
 resource "aws_instance" "app_server" {
   ami                    = data.aws_ami.al2.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.app_sg.id]
+  vpc_security_group_ids = [aws_security_group.Bdevops-app-sg.id]
   key_name               = var.key_name
 
-  depends_on = [aws_security_group.app_sg]
+  depends_on = [aws_security_group.Bdevops-app-sg]
 
   user_data = <<-EOF
     #!/bin/bash
@@ -71,7 +71,7 @@ docker run -d -p 80:3000 --name devops-app your_dockerhub_user/aws-devops-app:la
 EOF
 
   tags = {
-    Name = "DevOps-App-Server"
+    Name = "Bdevops-app-sg"
   }
 }
 
